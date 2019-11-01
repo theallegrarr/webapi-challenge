@@ -50,6 +50,17 @@ router.delete('/:id', validateId, (req, res) => {
             })
 })
 
+router.put('/:id', validateId, (req, res) => {
+    actions.update(req.params.id, req.body)
+           .then(result => {
+            res.status(200).json(result);
+           })
+           .catch(err => {
+               console.log(err);
+               res.status(400).json({ message: `error removing action`});
+            })
+})
+
 
 // Middlewares
 function validateId(req, res, next) {

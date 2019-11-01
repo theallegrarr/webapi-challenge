@@ -29,17 +29,30 @@ router.post('/', validateProject, (req, res) => {
            })
 })
 
+router.put('/:id', validateProject, validateId, (req,res) => {
+    actions.update(req.params.id, req.body)
+           .then(data => {
+               res.status(200).json(data);
+           })
+           .catch(err => {
+               console.log(err);
+               res.status(400).json({ message: `error updating project`});
+           })
+})
+
 
 
 // Middlewares
 function validateId(req, res, next) {
     actions.get(req.params.id)
            .then(data => {
+               
                if(data){
                    req.project = data;
                    next();
+                } else {
+                    res.status(400).json({ message: `ID not valid`});
                 }
-               res.status(400).json({ message: `ID not valid`});
             })
            .catch(err => {
                console.log(err);

@@ -1,6 +1,6 @@
 const express = require('express');
 const actions = require('../data/helpers/actionModel');
-const project = require('../data/helpers/projectModel');
+const projects = require('../data/helpers/projectModel');
 
 const router = express.Router();
 
@@ -34,6 +34,17 @@ router.post('/', validateAction, validateProjectId, (req, res) => {
            .catch(err => {
                console.log(err);
                res.status(400).json({ message: `error inserting action`});
+            })
+})
+
+router.delete('/:id', validateId, (req, res) => {
+    actions.remove(req.params.id)
+           .then(result => {
+            res.status(200).json(result);
+           })
+           .catch(err => {
+               console.log(err);
+               res.status(400).json({ message: `error removing action`});
             })
 })
 

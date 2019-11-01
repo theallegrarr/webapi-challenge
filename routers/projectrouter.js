@@ -29,7 +29,7 @@ router.post('/', validateProject, (req, res) => {
            })
 })
 
-router.remove('/:id', validateId, (req,res) => {
+router.delete('/:id', validateId, (req,res) => {
     actions.remove(req.params.id)
            .then(data => {
                res.status(200).json(data);

@@ -29,6 +29,17 @@ router.post('/', validateProject, (req, res) => {
            })
 })
 
+router.remove('/:id', validateId, (req,res) => {
+    actions.remove(req.params.id)
+           .then(data => {
+               res.status(200).json(data);
+           })
+           .catch(err => {
+            console.log(err);
+            res.status(400).json({ message: `error removing project` });
+           })
+})
+
 router.put('/:id', validateProject, validateId, (req,res) => {
     actions.update(req.params.id, req.body)
            .then(data => {

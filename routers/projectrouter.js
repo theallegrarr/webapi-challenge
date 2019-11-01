@@ -1,7 +1,9 @@
 const express = require('express');
+const cors = require('cors');
 const actions = require('../data/helpers/projectModel');
 
 const router = express.Router();
+router.use(cors());
 
 router.get('/', (req, res) => {
     actions.get()
